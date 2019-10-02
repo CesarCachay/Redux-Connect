@@ -6,9 +6,9 @@ import { changeLogin } from "./actions/loginActions";
 function CounterDispatchToProps(props) {
   const { counter, status } = props;
 
-  const changeStatus = () => props.dispatch(changeLogin());
-  const decrementNumber = () => props.dispatch(decrement());
-  const incrementNumber = () => props.dispatch(increment(5));
+  const changeStatus = () => props.changeLogin();
+  const decrementNumber = () => props.decrement();
+  const incrementNumber = () => props.increment(5);
 
   return (
     <div>
