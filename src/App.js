@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
+import { decrement, increment } from "./actions/counterActions";
+import { changeLogin } from "./actions/loginActions";
 
-function App() {
+function App(props) {
+  const { counter, status } = props;
+
+  const changeStatus = () => props.dispatch(changeLogin());
+  const decrementNumber = () => props.dispatch(decrement());
+  const incrementNumber = () => props.dispatch(increment(5));
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello World!</h1>
+      <h1>Counter: {counter}</h1>
+      <button type="button" onClick={incrementNumber}>
+        Add +
+      </button>
+      <button type="button" onClick={decrementNumber}>
+        Reduce -
+      </button>
+      {status ? (
+        <>
+          <h1>Your status is: Online</h1>
+          <h2>Your can see it AWESOME!</h2>
+        </>
+      ) : (
+        <h1>Your status is: Offline</h1>
+      )}
+
+      <button type="button" onClick={changeStatus}>
+        Change your status
+      </button>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  counter: state.counter,
+  status: state.logged
+});
+
+// const mapDispatchToProps = {
+//   changeLogin: changeLogin,
+//   increment: increment,
+//   decrement: decrement
+// };
+
+export default connect(
+  mapStateToProps
+  // mapDispatchToProps
+)(App);
